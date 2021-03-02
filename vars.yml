@@ -1,0 +1,15 @@
+---
+- hosts: webapp
+  user: ansible
+  become: true
+  vars:
+    pkgname: httpd
+  tasks:
+         - name: install httpd packages
+           action: yum name="{{pkgname}}" state=present
+         - name: enable httpd
+           action: service name="{{pkgname}}" enabled=yes
+           notify: restart httpd
+  handlers:
+          - name: restart httpd
+            action: service name="{{pkgname}}" state=restarted

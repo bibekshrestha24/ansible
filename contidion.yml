@@ -1,0 +1,11 @@
+---
+- hosts: webapp
+  user: ansible
+  become: true
+  tasks:
+          - name: install httpd on Debian
+            command: apt-get install httpd -y
+            when: ansible_os_family == "Debian"
+          - name: install httpd on Redhat
+            command: yum install httpd -y
+            when: ansible_os_family == "RedHat"
